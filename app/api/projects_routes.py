@@ -1,35 +1,30 @@
 from fastapi import APIRouter, HTTPException
 from bson import ObjectId
-from app.database import collection
-from app.models import Project
+from app.database import projects_collection
+from app.schemas.models import Project
 
-router = APIRouter()
-
-
-@router.get("/")
-def read_root():
-    return {"message": "Hello World"}
+router = APIRouter(prefix="/projects", tags=["Download"])
 
 
-@router.post("/projects")
+@router.post("/")
 def create_project(project: Project):
     data = project.dict()
-    result = collection.insert_one(data)
+    result = projects_collection.insert_one(data)
     return {"_id": str(result.inserted_id)}
 
 
-@router.get("/projects")
+@router.get("/")
 def get_projects():
     projects = []
-    for p in collection.find():
+    for p in projects_collection.find():
         p["_id"] = str(p["_id"])
         projects.append(p)
     return projects
 
 
-@router.get("/projects/{id}")
+@router.get("/{id}")
 def get_one(id: str):
-    project = collection.find_one({"_id": ObjectId(id)})
+    project = projects_collection.find_one({"_id": ObjectId(id)})
 
     if project is None:
         raise HTTPException(status_code=404, detail="project not found")
@@ -38,13 +33,13 @@ def get_one(id: str):
     return project
 
 
-@router.put("/projects/{id}")
+@router.put("/{id}")
 def update_project(id: str, project: Project):
-    collection.update_one({"_id": ObjectId(id)}, {"$set": project.dict()})
+    projects_collection.update_one({"_id": ObjectId(id)}, {"$set": project.dict()})
     return {"message": "updated"}
 
 
-@router.delete("/projects/{id}")
+@router.delete("/{id}")
 def delete_project(id: str):
-    collection.delete_one({"_id": ObjectId(id)})
+    projects_collection.delete_one({"_id": ObjectId(id)})
     return {"message": "deleted"}

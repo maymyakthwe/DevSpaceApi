@@ -1,5 +1,5 @@
+from app.api import home, auth_routes, projects_routes
 from fastapi import FastAPI
-from app.routes import router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -11,4 +11,7 @@ app.add_middleware(
     allow_headers=["*"],  # allow custom headers
 )
 
-app.include_router(router)
+
+app.include_router(projects_routes.router)
+app.include_router(home.router)
+app.include_router(auth_routes.router)

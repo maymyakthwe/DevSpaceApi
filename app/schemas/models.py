@@ -4,10 +4,8 @@ from pydantic import BaseModel, EmailStr
 class Project(BaseModel):
     name: str
     description: str
-    status: str
     techstack: list[str]
     lastUpdated: str
-    progress: int
     link: str
     active: bool
 
@@ -27,3 +25,21 @@ class UserResponse(BaseModel):
     id: str
     email: EmailStr
     username: str
+
+
+class UserProfile(BaseModel):
+    username: str
+    bio: str
+    location: str
+    email: EmailStr
+    portfolio: str
+    github: str
+    linkedin: str
+    twitter: str
+    devSpace: str
+    about: str
+    top_skills: list[str]
+    achievement: list[str]
+    public: bool
+    showEmail: bool
+    userId: str

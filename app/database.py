@@ -12,3 +12,4 @@ db = client["mydatabase"]
 
 projects_collection = db["projects"]
 user_collection = db["users"]
+profile_collection = db["profile"]

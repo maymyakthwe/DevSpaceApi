@@ -10,7 +10,8 @@ router = APIRouter(prefix="/projects", tags=["Download"])
 async def create_project(project: Project):
     data = project.dict()
     result = await projects_collection.insert_one(data)
-    return {"_id": str(result.inserted_id)}
+    data["_id"] = str(result.inserted_id)
+    return data
 
 
 @router.get("/")

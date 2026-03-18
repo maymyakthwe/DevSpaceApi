@@ -1,4 +1,4 @@
-from app.api import home, auth_routes, projects_routes
+from app.api import home, auth_routes, projects_routes, profile_routes
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,3 +15,4 @@ app.add_middleware(
 app.include_router(projects_routes.router)
 app.include_router(home.router)
 app.include_router(auth_routes.router)
+app.include_router(profile_routes.router)

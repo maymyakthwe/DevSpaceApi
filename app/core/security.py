@@ -13,7 +13,7 @@ load_dotenv()
 security = HTTPBearer()
 secret_key = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 10080
 
 
 def hash_password(password: str) -> str:
